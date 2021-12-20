@@ -1,3 +1,6 @@
+# ignore all clutter notes
+/memo/
+
 # Prerequisites
 *.d
 
