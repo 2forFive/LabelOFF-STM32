@@ -34,6 +34,7 @@ void task_remove(controller_t *controller);
 void task_release(controller_t *controller);
 //void task_transmit(controller_t *controller, cmd_mode_e mode, signal_e signal);
 
+void controller_reset(controller_t *controller_reset);
 
 /**
 	* @brief          initializer for all components
@@ -145,11 +146,13 @@ void controller_task(controller_t *controller_task)
 	motor_task(controller_task, controller_task->motor_status[0], 
 															controller_task->motor_status[1], 
 															controller_task->motor_status[2]);
-	
+	if(*controller_task->Flag == Flag_INIT)
+	{
+		controller_reset(controller_task);
+	}
 	if(*controller_task->Flag == Flag_TRANSFER)
 	{
 		task_transfer(controller_task);
-		//*controller_task->Flag = 0;
 	}
 	else if(*controller_task->Flag == Flag_CUT)
 	{
@@ -158,7 +161,6 @@ void controller_task(controller_t *controller_task)
 	else if(*controller_task->Flag == Flag_REMOVE)
 	{
 		task_remove(controller_task);
-		//*controller_task->Flag = 0;
 	}
 	else if(*controller_task->Flag == Flag_RELEASE)
 	{
@@ -166,7 +168,6 @@ void controller_task(controller_t *controller_task)
 		//task_transmit(controller_task, MODE_Work, Signal_END);
 		uart_transmit(controller_task->liaison, MODE_Work, Signal_END);
 	}
-		
 }
 
 
@@ -181,7 +182,10 @@ void controller_reset(controller_t *controller_reset)
 	controller_reset->motor_status[1] = 0;
 	controller_reset->motor_status[2] = 0;
 	
-	//*controller_reset->Signal = Signal_INIT;
+	servo_cutter_task(&controller_reset->servo_cutter, Cutter_Relax);
+	servo_pusher_task(&controller_reset->servo_pusher, Pusher_Relax);
+	switch_hotline_set_status(&controller_reset->switch_hotline, GPIO_PIN_RESET);
+	
 	*controller_reset->Flag 	= Flag_INIT;
 }
 
@@ -194,9 +198,6 @@ void controller_reset(controller_t *controller_reset)
 void controller_stop(controller_t *controller_stop)
 {
 	motor_task(controller_stop, 0, 0, 0);
-	servo_cutter_task(&controller_stop->servo_cutter, Cutter_Relax);
-	servo_pusher_task(&controller_stop->servo_pusher, Pusher_Relax);
-	switch_hotline_set_status(&controller_stop->switch_hotline, GPIO_PIN_RESET);
 	controller_reset(controller_stop);
 }
 
@@ -245,6 +246,7 @@ void task_cut(controller_t *controller)
 		controller->motor_status[2] = 1;
 		
 		*controller->Flag = Flag_REMOVE;
+		
 		controller->switch_hotline.mom_set		= 0;
 //		controller->switch_hotline.moment 		= 0.0f;
 	}

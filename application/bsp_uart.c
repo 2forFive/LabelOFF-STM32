@@ -97,6 +97,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 		Signal = Signal_START;
 		// LED
 	}
+	if(strcmp(liaison_ch8.temp, "#W2000") == 0)
+	{
+		Signal = Signal_END;
+		
+		// LED
+	}
 	else if(strcmp(liaison_ch8.temp, "#E9999") == 0)
 	{
 		Signal = Signal_ERROR;

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [BottleCutter\BottleCutter.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image BottleCutter\BottleCutter.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Dec 21 00:03:10 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Dec 21 16:41:46 2021
 <BR><P>
 <H3>Maximum Stack Usage =        176 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -883,7 +883,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_task
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_task
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pwm_set_angle_direct
 </UL>
 
@@ -904,7 +904,7 @@ Global Symbols
 <P><STRONG><a name="[e2]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(i.HAL_GPIO_WritePin))
 <BR><BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_set_status
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_set_status
 </UL>
 
 <P><STRONG><a name="[9f]"></a>HAL_GetTick</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_hal.o(i.HAL_GetTick))
@@ -914,11 +914,11 @@ Global Symbols
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PWREx_EnableOverDrive
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Start
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid_calculate
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_RxFifo0MsgPendingCallback
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_WaitOnFlagUntilTimeout
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
 
 <P><STRONG><a name="[e8]"></a>HAL_IncTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_hal.o(i.HAL_IncTick))
@@ -1063,12 +1063,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b9]"></a>HAL_TIM_ConfigClockSource</STRONG> (Thumb, 220 bytes, Stack size 16 bytes, stm32f4xx_hal_tim.o(i.HAL_TIM_ConfigClockSource))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_TIM_ConfigClockSource &rArr; TIM_TI2_ConfigInputStage
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_TIM_ConfigClockSource &rArr; TIM_ETR_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI2_ConfigInputStage
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETR_SetConfig
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI2_ConfigInputStage
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI1_ConfigInputStage
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITRx_SetConfig
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETR_SetConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM5_Init
 </UL>
@@ -1105,12 +1105,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c7]"></a>HAL_TIM_PWM_ConfigChannel</STRONG> (Thumb, 204 bytes, Stack size 16 bytes, stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HAL_TIM_PWM_ConfigChannel &rArr; TIM_OC3_SetConfig
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HAL_TIM_PWM_ConfigChannel &rArr; TIM_OC2_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4_SetConfig
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2_SetConfig
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4_SetConfig
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3_SetConfig
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1_SetConfig
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2_SetConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM5_Init
 </UL>
@@ -1203,7 +1203,7 @@ Global Symbols
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
 </UL>
 
-<P><STRONG><a name="[dc]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 200 bytes, Stack size 24 bytes, bsp_uart.o(i.HAL_UART_RxCpltCallback))
+<P><STRONG><a name="[dc]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 216 bytes, Stack size 24 bytes, bsp_uart.o(i.HAL_UART_RxCpltCallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = HAL_UART_RxCpltCallback &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_TogglePin
@@ -1432,32 +1432,38 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[fb]"></a>controller_reset</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, controller.o(i.controller_reset))
-<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
+<P><STRONG><a name="[f6]"></a>controller_reset</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, controller.o(i.controller_reset))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = controller_reset &rArr; servo_pusher_task &rArr; servo_pwm_set_angle_direct &rArr; HAL_Delay
+</UL>
+<BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_set_status
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
+</UL>
+<BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_task
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f6]"></a>controller_stop</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, controller.o(i.controller_stop))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = controller_stop &rArr; motor_task &rArr; set_motor_current &rArr; HAL_CAN_AddTxMessage
+<P><STRONG><a name="[fa]"></a>controller_stop</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, controller.o(i.controller_stop))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = controller_stop &rArr; motor_task &rArr; set_motor_current &rArr; HAL_CAN_AddTxMessage
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_set_status
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_task
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_reset
+<BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_reset
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_task
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[fc]"></a>controller_task</STRONG> (Thumb, 102 bytes, Stack size 8 bytes, controller.o(i.controller_task))
+<P><STRONG><a name="[fc]"></a>controller_task</STRONG> (Thumb, 114 bytes, Stack size 8 bytes, controller.o(i.controller_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
 <LI>Call Chain = controller_task &rArr; uart_transmit &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit
+<BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_reset
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_transmit
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_transfer
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_remove
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_release
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_cut
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_task
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_task
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1493,13 +1499,14 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_init
 </UL>
 
-<P><STRONG><a name="[7b]"></a>main</STRONG> (Thumb, 238 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[7b]"></a>main</STRONG> (Thumb, 268 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
 <LI>Call Chain = main &rArr; SystemClock_Config &rArr; HAL_RCC_ClockConfig &rArr; HAL_RCC_GetSysClockFreq &rArr; __aeabi_uldivmod
 </UL>
 <BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_Init
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_task
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_reset
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_init
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART6_UART_Init
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_UART8_Init
@@ -1515,26 +1522,26 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[f7]"></a>motor_task</STRONG> (Thumb, 264 bytes, Stack size 24 bytes, controller.o(i.motor_task))
+<P><STRONG><a name="[fb]"></a>motor_task</STRONG> (Thumb, 264 bytes, Stack size 24 bytes, controller.o(i.motor_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = motor_task &rArr; set_motor_current &rArr; HAL_CAN_AddTxMessage
 </UL>
-<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_motor_current
+<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_motor_current
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_task
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
 </UL>
 
 <P><STRONG><a name="[f4]"></a>pid_init</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, pid.o(i.pid_init))
 <BR><BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_init
 </UL>
 
-<P><STRONG><a name="[f8]"></a>servo_cutter_task</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, controller.o(i.servo_cutter_task))
+<P><STRONG><a name="[f7]"></a>servo_cutter_task</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, controller.o(i.servo_cutter_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = servo_cutter_task &rArr; servo_pwm_set_angle_direct &rArr; HAL_Delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pwm_set_angle_direct
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_reset
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_transfer
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_remove
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_release
@@ -1542,12 +1549,12 @@ Global Symbols
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_task
 </UL>
 
-<P><STRONG><a name="[f9]"></a>servo_pusher_task</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, controller.o(i.servo_pusher_task))
+<P><STRONG><a name="[f8]"></a>servo_pusher_task</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, controller.o(i.servo_pusher_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = servo_pusher_task &rArr; servo_pwm_set_angle_direct &rArr; HAL_Delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pwm_set_angle_direct
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_reset
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_transfer
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_remove
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_release
@@ -1571,11 +1578,11 @@ Global Symbols
 <P><STRONG><a name="[106]"></a>servo_pwm_set_angle_direct</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, servo_pwm.o(i.servo_pwm_set_angle_direct))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = servo_pwm_set_angle_direct &rArr; HAL_Delay
 </UL>
-<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pwm_get_angle
+<BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pwm_get_angle
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
+<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
 </UL>
 
 <P><STRONG><a name="[105]"></a>set_motor_current</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, bsp_can.o(i.set_motor_current))
@@ -1583,24 +1590,24 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_AddTxMessage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_task
+<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_task
 </UL>
 
-<P><STRONG><a name="[fa]"></a>switch_hotline_set_status</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, bsp_gpio.o(i.switch_hotline_set_status))
+<P><STRONG><a name="[f9]"></a>switch_hotline_set_status</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, bsp_gpio.o(i.switch_hotline_set_status))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = switch_hotline_set_status
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_stop
+<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_reset
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_task
 </UL>
 
 <P><STRONG><a name="[109]"></a>switch_hotline_task</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, controller.o(i.switch_hotline_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = switch_hotline_task &rArr; servo_cutter_task &rArr; servo_pwm_set_angle_direct &rArr; HAL_Delay
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_set_status
+<BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_set_status
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_SystemTimer
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
 </UL>
 <BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;task_cut
 </UL>
@@ -1609,8 +1616,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = task_cut &rArr; switch_hotline_task &rArr; servo_cutter_task &rArr; servo_pwm_set_angle_direct &rArr; HAL_Delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch_hotline_task
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_task
 </UL>
@@ -1618,8 +1625,8 @@ Global Symbols
 <P><STRONG><a name="[fd]"></a>task_release</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, controller.o(i.task_release))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = task_release &rArr; servo_pusher_task &rArr; servo_pwm_set_angle_direct &rArr; HAL_Delay
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
+<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_task
 </UL>
@@ -1627,8 +1634,8 @@ Global Symbols
 <P><STRONG><a name="[101]"></a>task_remove</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, controller.o(i.task_remove))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = task_remove &rArr; servo_pusher_task &rArr; servo_pwm_set_angle_direct &rArr; HAL_Delay
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
+<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_task
 </UL>
@@ -1636,8 +1643,8 @@ Global Symbols
 <P><STRONG><a name="[ff]"></a>task_transfer</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, controller.o(i.task_transfer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = task_transfer &rArr; servo_pusher_task &rArr; servo_pwm_set_angle_direct &rArr; HAL_Delay
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
+<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_pusher_task
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;servo_cutter_task
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_task
 </UL>
@@ -1646,8 +1653,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
 <LI>Call Chain = uart_transmit &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit_IT
+<BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit_IT
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;controller_task

@@ -65,7 +65,10 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+//uart_stand_in_t* get_stand_in_ptr()
+//{
+//	return &stand_in;
+//}
 /* USER CODE END 0 */
 
 /**
@@ -102,7 +105,7 @@ int main(void)
   MX_UART7_Init();
   MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
-	//HAL_GPIO_WritePin(GPIOG, GPIO_PIN_1, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOG, GPIO_PIN_5, GPIO_PIN_RESET);
 	delay_Init();
 	controller_init(&controller);
 	
@@ -118,6 +121,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
   {
+		//
 		if(stand_in.turn_on)
 		{
 			if(stand_in.signal == 1000)
@@ -132,7 +136,11 @@ int main(void)
 			
 			if(*controller.Signal==Signal_START)
 			{
-				if(stand_in.flag == 1001)
+				if(stand_in.flag == 0000)
+				{
+					*controller.Flag = Flag_INIT;
+				}
+				else if(stand_in.flag == 1001)
 				{
 					*controller.Flag = Flag_TRANSFER;
 				}
@@ -152,7 +160,10 @@ int main(void)
 		}
 		
 		
+		// time counter
 		alltime = Get_SystemTimer_s();
+		
+		// enter different work condition according to Signal
 		if(*controller.Signal == Signal_START)
 		{
 			controller_task(&controller);
@@ -161,9 +172,15 @@ int main(void)
 		{
 			controller_stop(&controller);
 		}
+		else if(*controller.Signal == Signal_END)
+		{
+			*controller.Signal = Signal_START;
+			controller_reset(&controller);
+			
+		}
 		
 		
-
+		// test - hotline
 		if(switchH)
 		{
 			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);

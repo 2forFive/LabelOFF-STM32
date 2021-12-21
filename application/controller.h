@@ -66,8 +66,10 @@
 
 
 /* hotline */
-#define HOTLINE_PORT			 GPIOI
-#define HOTLINE_PIN				 GPIO_PIN_2
+//#define HOTLINE_PORT			 GPIOI
+//#define HOTLINE_PIN				 GPIO_PIN_2
+#define HOTLINE_PORT			 GPIOG
+#define HOTLINE_PIN				 GPIO_PIN_5
 #define HOTLINE_HEAT_DELAY 5000
 #define HOTLINE_WORK_DELAY 3000
 
@@ -132,6 +134,7 @@ typedef struct
 /** functions */
 void controller_init(controller_t *controller_init);
 void controller_task(controller_t *controller_task);
+void controller_reset(controller_t *controller_reset);
 void controller_stop(controller_t *controller_stop);
 
 void motor_task(controller_t *controller, uint8_t front, uint8_t middle, uint8_t end);
