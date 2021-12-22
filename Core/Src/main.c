@@ -160,7 +160,7 @@ int main(void)
 		}
 		
 		
-		// time counter
+		// global time counter
 		alltime = Get_SystemTimer_s();
 		
 		// enter different work condition according to Signal

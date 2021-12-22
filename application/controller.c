@@ -186,7 +186,8 @@ void controller_reset(controller_t *controller_reset)
 	servo_pusher_task(&controller_reset->servo_pusher, Pusher_Relax);
 	switch_hotline_set_status(&controller_reset->switch_hotline, GPIO_PIN_RESET);
 	
-	*controller_reset->Flag 	= Flag_INIT;
+	if(*controller_reset->Flag != Flag_INIT)
+		*controller_reset->Flag = Flag_INIT;
 }
 
 
