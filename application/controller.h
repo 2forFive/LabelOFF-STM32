@@ -31,8 +31,8 @@
 /* motor speed */
 #define MOTOR1_SPEED -200  // front left , counterclockwise, negative
 #define MOTOR2_SPEED  200  // front right, 			 clockwise, positive
-#define MOTOR3_SPEED  400  // end   upper, 			 clockwise, positive
-#define MOTOR4_SPEED -400  // end   lower, counterclockwise, negative
+#define MOTOR3_SPEED  600  // end   upper, 			 clockwise, positive
+#define MOTOR4_SPEED -600  // end   lower, counterclockwise, negative
 #define MOTOR5_SPEED  800  // middle			, 			 clockwise, positive
 
 /* motor current */
@@ -71,7 +71,7 @@
 //#define HOTLINE_PORT			 GPIOG
 //#define HOTLINE_PIN				 GPIO_PIN_5
 //#define HOTLINE_HEAT_DELAY 3000
-#define HOTLINE_HEAT_DELAY 17000
+#define HOTLINE_HEAT_DELAY 23000
 #define HOTLINE_WORK_DELAY 1500
 
 
@@ -79,14 +79,14 @@ typedef enum
 {
 	Cutter_Relax   = SERVO_CUTTER_DEFAULT,
 	Cutter_Tangent = 625,
-	Cutter_Barrier = 730,
+	Cutter_Barrier = 700,
 	Cutter_Cut		 = 800
 } servo_cutter_angle_e;
 
 typedef enum
 {
 	Pusher_Relax = SERVO_PUSHER_DEFAULT,
-	Pusher_Push	= 980
+	Pusher_Push	= 1050
 } servo_pusher_angle_e;
 
 
