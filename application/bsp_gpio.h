@@ -25,6 +25,7 @@ typedef struct
 	
 	GPIO_PinState status;
 	
+	uint16_t			on_times;
 	uint16_t 			mom_set;	//whether 
 	float					moment;
 	float					duration; // how long it has been turned on

@@ -121,7 +121,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
   {
-		//
+		// for debugging
 		if(stand_in.turn_on)
 		{
 			if(stand_in.signal == 1000)
@@ -181,14 +181,14 @@ int main(void)
 		
 		
 		// test - hotline
-		if(switchH)
-		{
-			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-		}
-		else
-		{
-			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-		}
+//		if(switchH)
+//		{
+//			HAL_GPIO_WritePin(GPIOI, GPIO_PIN_2, GPIO_PIN_SET);
+//		}
+//		else
+//		{
+//			HAL_GPIO_WritePin(GPIOI, GPIO_PIN_2, GPIO_PIN_RESET);
+//		}
 //		else if(*controller.Signal == Signal_INIT)
 //		{
 //			motor_task(&controller, controller.motor_status[0], 

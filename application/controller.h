@@ -29,11 +29,11 @@
 
 /*** define consts ***/
 /* motor speed */
-#define MOTOR1_SPEED -150  // front left , counterclockwise, negative
-#define MOTOR2_SPEED  150  // front right, 			 clockwise, positive
-#define MOTOR3_SPEED  500  // end   upper, 			 clockwise, positive
-#define MOTOR4_SPEED -500  // end   lower, counterclockwise, negative
-#define MOTOR5_SPEED  700  // middle			, 			 clockwise, positive
+#define MOTOR1_SPEED -200  // front left , counterclockwise, negative
+#define MOTOR2_SPEED  200  // front right, 			 clockwise, positive
+#define MOTOR3_SPEED  400  // end   upper, 			 clockwise, positive
+#define MOTOR4_SPEED -400  // end   lower, counterclockwise, negative
+#define MOTOR5_SPEED  800  // middle			, 			 clockwise, positive
 
 /* motor current */
 #define M3508_MAX_CURRENT 16384
@@ -66,12 +66,13 @@
 
 
 /* hotline */
-//#define HOTLINE_PORT			 GPIOI
-//#define HOTLINE_PIN				 GPIO_PIN_2
-#define HOTLINE_PORT			 GPIOG
-#define HOTLINE_PIN				 GPIO_PIN_5
-#define HOTLINE_HEAT_DELAY 5000
-#define HOTLINE_WORK_DELAY 3000
+#define HOTLINE_PORT			 GPIOI
+#define HOTLINE_PIN				 GPIO_PIN_2
+//#define HOTLINE_PORT			 GPIOG
+//#define HOTLINE_PIN				 GPIO_PIN_5
+//#define HOTLINE_HEAT_DELAY 3000
+#define HOTLINE_HEAT_DELAY 17000
+#define HOTLINE_WORK_DELAY 1500
 
 
 typedef enum
@@ -85,7 +86,7 @@ typedef enum
 typedef enum
 {
 	Pusher_Relax = SERVO_PUSHER_DEFAULT,
-	Pusher_Push	= 1000
+	Pusher_Push	= 980
 } servo_pusher_angle_e;
 
 

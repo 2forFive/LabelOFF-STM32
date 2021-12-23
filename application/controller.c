@@ -128,7 +128,7 @@ void controller_init(controller_t *controller_init)
 	controller_init->switch_hotline.port			= HOTLINE_PORT;
 	controller_init->switch_hotline.pin				= HOTLINE_PIN;
 	controller_init->switch_hotline.status	 	= GPIO_PIN_RESET;
-	//controller_init->switch_hotline.on_times = 0;
+	controller_init->switch_hotline.on_times	= 0;
 	controller_init->switch_hotline.mom_set		= 0;
 	controller_init->switch_hotline.moment 		= 0.0f;
 	controller_init->switch_hotline.duration 	= 0.0f;
@@ -172,7 +172,7 @@ void controller_task(controller_t *controller_task)
 
 
 /**
-	* @brief          
+	* @brief          reset the positions of motors and servos
 	* @param		      a: xxx
   * @retval         
   */
@@ -184,7 +184,6 @@ void controller_reset(controller_t *controller_reset)
 	
 	servo_cutter_task(&controller_reset->servo_cutter, Cutter_Relax);
 	servo_pusher_task(&controller_reset->servo_pusher, Pusher_Relax);
-	switch_hotline_set_status(&controller_reset->switch_hotline, GPIO_PIN_RESET);
 	
 	if(*controller_reset->Flag != Flag_INIT)
 		*controller_reset->Flag = Flag_INIT;
@@ -199,6 +198,7 @@ void controller_reset(controller_t *controller_reset)
 void controller_stop(controller_t *controller_stop)
 {
 	motor_task(controller_stop, 0, 0, 0);
+	switch_hotline_set_status(&controller_stop->switch_hotline, GPIO_PIN_RESET);
 	controller_reset(controller_stop);
 }
 
@@ -380,14 +380,14 @@ void servo_pusher_task(servo_pwm_t *servo_pusher, servo_pusher_angle_e target)
   */
 uint16_t switch_hotline_task(servo_pwm_t *cutter, switch_hotline_t *hotline)
 {
-	if(hotline->status != GPIO_PIN_SET)
+	if(hotline->status != GPIO_PIN_SET) //if the hotline isn't on
 	{
 		switch_hotline_set_status(hotline, GPIO_PIN_SET);
 		hotline->moment = Get_SystemTimer();
 		hotline->mom_set = 1;
 		return 0;
 	}
-	else if(!hotline->mom_set)
+	if(!hotline->mom_set) //if the moment hasn't set yet
 	{
 		hotline->moment = Get_SystemTimer() - HOTLINE_HEAT_DELAY;
 		hotline->mom_set = 1;

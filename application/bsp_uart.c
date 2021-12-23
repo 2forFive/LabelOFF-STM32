@@ -100,7 +100,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	if(strcmp(liaison_ch8.temp, "#W2000") == 0)
 	{
 		Signal = Signal_END;
-		
 		// LED
 	}
 	else if(strcmp(liaison_ch8.temp, "#E9999") == 0)
@@ -112,7 +111,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	
 	if(Signal==Signal_START)
 	{
-		if(strcmp(liaison_ch8.temp, "#F1001") == 0)
+		if(strcmp(liaison_ch8.temp, "#F0000") == 0)
+		{
+			Flag = Flag_INIT;
+		}
+		else if(strcmp(liaison_ch8.temp, "#F1001") == 0)
 		{
 			Flag = Flag_TRANSFER;
 		}
