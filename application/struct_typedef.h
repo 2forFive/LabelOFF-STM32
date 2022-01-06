@@ -1,3 +1,16 @@
+/**
+  ******************************************************************************
+  * @file       struct_typedef.h
+	* @author			sxx
+  * @brief      typedef of some common data types
+  * @note       from DJI motor controlling demos
+  * @history
+  *  Version    Date            Modification
+  *  V1.0.0     Dec-10-2021     1. done
+	*
+  ******************************************************************************
+  */
+	
 #ifndef STRUCT_TYPEDEF_H
 #define STRUCT_TYPEDEF_H
 

@@ -2,11 +2,11 @@
   ******************************************************************************
   * @file       servo_bus.h
 	* @author			sxx
-  * @brief      
+  * @brief      Bus servo typedef
   * @note       
   * @history
   *  Version    Date            Modification
-  *  V1.0.0     Dec-10-2021      1. 
+  *  V1.0.0     Dec-10-2021     1. struct
   * @todo				1. 
 	*
   ******************************************************************************
@@ -14,6 +14,7 @@
 
 #ifndef SERVO_BUS_H
 #define SERVO_BUS_H
+
 #include "struct_typedef.h"
 #include "usart.h"
 

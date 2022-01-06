@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file       controller.h
 	* @author			sxx
-  * @brief      All contol tasks: defines
+  * @brief      consts and enums for the actuators;
+	*							struct of the controller
   * @note       
   * @history
   *  Version    Date            Modification
   *  V1.0.0     Dec-11-2021     1. template, online
 	*  V1.1.0			Dec-13-2021			1. modified pid constants
-	*	 V1.2.0			Dec-14-2021			1. add hot line, 
-  * @todo				1. constants
-	*							2. distinguish 2006 & 3508
+	*	 V1.2.0			Dec-14-2021			1. add hot line
+	*	 V2.0.0			Dec-23-2021			1. done
 	*
   ******************************************************************************
   */
@@ -26,7 +26,6 @@
 #include "bsp_uart.h"
 #include "bsp_tim.h"
 
-
 /*** define consts ***/
 /* motor speed */
 #define MOTOR1_SPEED -200  // front left , counterclockwise, negative
@@ -40,12 +39,13 @@
 #define M2006_MAX_CURRENT 10000
 
 /* motor speed PID */
+/* M3508 */
 #define M3508_MOTOR_SPEED_PID_KP 				1.5f
 #define M3508_MOTOR_SPEED_PID_KI 				0.1f
 #define M3508_MOTOR_SPEED_PID_KD 				0.0f
 #define M3508_MOTOR_SPEED_PID_MAX_OUT 	M3508_MAX_CURRENT
 #define M3508_MOTOR_SPEED_PID_MAX_IOUT 	2000.0f
-
+/* M2006 */
 #define M2006_MOTOR_SPEED_PID_KP 				2.0f
 #define M2006_MOTOR_SPEED_PID_KI 				0.1f
 #define M2006_MOTOR_SPEED_PID_KD 				0.0f
@@ -57,24 +57,23 @@
 #define SERVO_CUTTER_MAX 			1100
 #define SERVO_CUTTER_DEFAULT  SERVO_CUTTER_MIN
 
-
 /* pusher servo */
 #define SERVO_PUSHER_MIN			500
 #define SERVO_PUSHER_MAX 			1200
 #define SERVO_PUSHER_DEFAULT	SERVO_PUSHER_MIN
 //#define SERVO_PUSHER_PRESSURE 1100
 
-
 /* hotline */
 #define HOTLINE_PORT			 GPIOI
 #define HOTLINE_PIN				 GPIO_PIN_2
-//#define HOTLINE_PORT			 GPIOG
-//#define HOTLINE_PIN				 GPIO_PIN_5
-//#define HOTLINE_HEAT_DELAY 3000
 #define HOTLINE_HEAT_DELAY 23000
 #define HOTLINE_WORK_DELAY 1500
+// use LED5 to substitute hotline when debugging for the sake of safety
+//#define HOTLINE_PORT			 GPIOG
+//#define HOTLINE_PIN				 GPIO_PIN_5
 
-
+/* enum of servo angles */
+/* cutter */
 typedef enum
 {
 	Cutter_Relax   = SERVO_CUTTER_DEFAULT,
@@ -82,7 +81,7 @@ typedef enum
 	Cutter_Barrier = 700,
 	Cutter_Cut		 = 800
 } servo_cutter_angle_e;
-
+/* pusher */
 typedef enum
 {
 	Pusher_Relax = SERVO_PUSHER_DEFAULT,
@@ -90,7 +89,7 @@ typedef enum
 } servo_pusher_angle_e;
 
 
-
+/* controller struct typedef */
 typedef struct
 {
 	/* time period counter */
@@ -99,31 +98,37 @@ typedef struct
 	/* liaison, communicate with Pi */
 	liaison_t *liaison;
 	
-	/* uart signal, receive commands from Pi */
-	//uint16_t *Signal;
+	/* uart signal */
+	//uint16_t *Signal;  // for debugging without upper computer
 	signal_e *Signal;
 	
-	/* work condition flag, control works on A Board */
-	//uint16_t *Flag;
+	/* work condition flag, only make sense when Signal=Start */
+	//uint16_t *Flag;    // for debugging without upper computer
 	flag_e *Flag;
+	
+	/* whether has entered Cut step */
+	// seems no use anymore but was kept in case of misunderstanding
 	uint8_t enteredCut;
 	
-	/* motor 1-5 */
+	/* controller of three motor modules */
 	uint8_t motor_status[3];
-	int32_t set_spd[5];
-	const motor_measure_t *motor[5];
-	pid_t motor_pid[5];
+	
+	/* motor 1-5 */
+	int32_t set_spd[5];								// target spd
+	const motor_measure_t *motor[5];	// motor data
+	pid_t motor_pid[5];								// pid
 	
 	/* servo cutter & pusher */
 	servo_pwm_t servo_cutter;
 	servo_pwm_t servo_pusher;
 	
-	/* hot line, just a switch */
+	/* relay of hotline*/
 	switch_hotline_t switch_hotline;
 	
 } controller_t;
 
 
+/* manually debugging controller */
 typedef struct
 {
 	uint16_t turn_on;
@@ -132,12 +137,12 @@ typedef struct
 } uart_stand_in_t;
 
 
-/** functions */
+/** function prototypes */
 void controller_init(controller_t *controller_init);
 void controller_task(controller_t *controller_task);
 void controller_reset(controller_t *controller_reset);
 void controller_stop(controller_t *controller_stop);
-
+// in case of manually debugging motors, can be commented
 void motor_task(controller_t *controller, uint8_t front, uint8_t middle, uint8_t end);
 
 #endif

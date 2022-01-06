@@ -2,14 +2,11 @@
   ******************************************************************************
   * @file       bsp_can.h
 	* @author			sxx
-  * @brief      
-  * @note       Modified from DJI M2006 Demo and lml's trials.
-	*							Original code uses old version HAL functions, 
-	*							now they are the latest version.
+  * @brief      CAN ID enum, CAN Tx and Rx structs, motor data struct
+  * @note       
   * @history
   *  Version    Date            Modification
-  *  V1.0.0     Dec-10-2021     1. done
-  * @todo				1. add 2006
+  *  V1.0.0     Dec-13-2021     1. done
 	*
   ******************************************************************************
   */
@@ -20,8 +17,7 @@
 #include "struct_typedef.h"
 #include "can.h"
 
-
-/* CAN1 ID enum */
+/* CAN ID enum */
 typedef enum
 {
 	CAN_Motor_ALL_ID1 = 0x200,
@@ -38,7 +34,7 @@ typedef enum
 } can_msg_id_e;
 
 
-/* CAN1 Tx */
+/* CAN Tx */
 typedef struct
 {
 	CAN_TxHeaderTypeDef TxHeader;
@@ -46,7 +42,7 @@ typedef struct
 	uint32_t mailbox;
 } CANTxMsg_t;
 
-/* CAN1 Rx */
+/* CAN Rx */
 typedef struct
 {
 	CAN_RxHeaderTypeDef RxHeader;
@@ -73,7 +69,7 @@ typedef struct{
 } motor_measure_t;
 
 
-
+/* function prototypes*/
 void can_filter_init(CAN_HandleTypeDef *hcan);
 void get_motor_measure(motor_measure_t *ptr);
 void set_motor_current(CAN_HandleTypeDef *hcan, u32 stdId, s16 iq1, s16 iq2, s16 iq3, s16 iq4);

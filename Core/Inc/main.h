@@ -37,7 +37,7 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+// define commonly used ports and pins
 #define KEY_GPIO_Port 	GPIOB
 #define KEY_Pin 				GPIO_PIN_2
 

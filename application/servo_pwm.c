@@ -7,21 +7,15 @@
   * @note       
   * @history
   *  Version    Date            Modification
-  *  V1.0.0     Dec-9-2021      1. all functions
-  * @todo				1. comments
-	*							2. verifying
+  *  V1.0.0     Dec-9-2021      1. done
 	*
   ******************************************************************************
   */
 
-
 #include "servo_pwm.h"
-
-
 
 /* function prototypes */
 uint16_t servo_pwm_set_angle_direct(servo_pwm_t* servo_pwm, uint16_t set);
-
 
 /**
   * @brief          return the pwm servo angle data
@@ -62,8 +56,8 @@ void servo_pwm_init(servo_pwm_t *servo_pwm,
 												uint16_t angle_min, 
 												uint16_t angle_max, 
 												uint16_t time )
-												//uint16_t *angle )
 {
+	// value assignment
 	servo_pwm->id  = id;
 	servo_pwm->tim = tim;
 	servo_pwm->ch  = ch;
@@ -74,22 +68,22 @@ void servo_pwm_init(servo_pwm_t *servo_pwm,
 	
 	servo_pwm->time					 = time;
 	
-	//servo_pwm->angle = angle;
-	
+	// start TIM pwm generation
 	HAL_TIM_PWM_Start(tim, ch);
 	
-	servo_pwm_get_angle(servo_pwm);
-	
+	// set the servo to the default position
 	servo_pwm_set_angle_direct(servo_pwm, angle_default);
 	
+	// init angle info
+	servo_pwm_get_angle(servo_pwm);
 }
 
 
 /**
-	* @brief          change the pwm servo ccr
+	* @brief          change the pwm servo ccr; go to target angle directly
   * @param		      servo_pwm: controlled pwm servo point
 	* @param		      set: target angle
-  * @retval         done or not
+  * @retval         boolean, done or not
   */
 uint16_t servo_pwm_set_angle_direct(servo_pwm_t* servo_pwm, uint16_t set)
 {
@@ -102,10 +96,10 @@ uint16_t servo_pwm_set_angle_direct(servo_pwm_t* servo_pwm, uint16_t set)
 
 
 /**
-  * @brief          change the pwm servo ccr
+  * @brief          change the pwm servo ccr; go to target angle step by step according to step value
   * @param		      servo_pwm: controlled pwm servo point
 	* @param		      set: target angle
-	* @param		      step: 
+	* @param		      step: value of a unit step
   * @retval         done or not
   */
 uint16_t servo_pwm_set_angle_bySteps(servo_pwm_t* servo_pwm, uint16_t set, uint16_t step)
@@ -115,6 +109,7 @@ uint16_t servo_pwm_set_angle_bySteps(servo_pwm_t* servo_pwm, uint16_t set, uint1
 	
 	uint16_t i=0;
 	
+	// clockwise
 	if(servo_pwm->angle_get < set)
 	{
 		for(i=servo_pwm->angle_get ; i<=(set-step) ; i+=step)
@@ -127,9 +122,9 @@ uint16_t servo_pwm_set_angle_bySteps(servo_pwm_t* servo_pwm, uint16_t set, uint1
 			__HAL_TIM_SET_COMPARE(servo_pwm->tim, servo_pwm->ch, set);
 			HAL_Delay(2);
 		}
-		
 		return 1;
 	}
+	// counterclockwise
 	else if(servo_pwm->angle_get > set)
 	{
 		for(i=servo_pwm->angle_get ; i>=(set+step) ; i-=step)
@@ -142,9 +137,9 @@ uint16_t servo_pwm_set_angle_bySteps(servo_pwm_t* servo_pwm, uint16_t set, uint1
 				__HAL_TIM_SET_COMPARE(servo_pwm->tim, servo_pwm->ch, set);
 				HAL_Delay(2);
 			}
-			
 			return 2;
 	}
+	// get equals target
 	else
 	{
 		return 0;

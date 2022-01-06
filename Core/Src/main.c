@@ -28,7 +28,6 @@
 /* USER CODE BEGIN Includes */
 #include "controller.h"
 
-
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,11 +47,16 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+// global time counter
 float alltime;
+
+// workflow controller
 controller_t controller;
 
+// debug controller; if true, the signals will be manually controlled 
 uart_stand_in_t stand_in;
 
+// debug controller for the hotline; if true, the relay will be enabled
 uint16_t switchH;
 
 /* USER CODE END PV */
@@ -65,10 +69,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//uart_stand_in_t* get_stand_in_ptr()
-//{
-//	return &stand_in;
-//}
+
 /* USER CODE END 0 */
 
 /**
@@ -105,10 +106,16 @@ int main(void)
   MX_UART7_Init();
   MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
+	// indicator light
 	HAL_GPIO_WritePin(GPIOG, GPIO_PIN_5, GPIO_PIN_RESET);
+	
+	// init the counter
 	delay_Init();
+	
+	// init the workflow controller
 	controller_init(&controller);
 	
+	// init the twodebug controller
 	stand_in.turn_on = 0;
 	stand_in.signal  = 0;
 	stand_in.flag 	 = 0;
@@ -121,49 +128,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
   {
-		// for debugging
-		if(stand_in.turn_on)
-		{
-			if(stand_in.signal == 1000)
-			{
-				*controller.Signal = Signal_START;
-			}
-			else if(stand_in.signal == 9999)
-			{
-				*controller.Signal = Signal_ERROR;
-				*controller.Flag = Flag_INIT;
-			}
-			
-			if(*controller.Signal==Signal_START)
-			{
-				if(stand_in.flag == 0000)
-				{
-					*controller.Flag = Flag_INIT;
-				}
-				else if(stand_in.flag == 1001)
-				{
-					*controller.Flag = Flag_TRANSFER;
-				}
-				else if(stand_in.flag == 1002)
-				{
-					*controller.Flag = Flag_CUT;
-				}
-				else if(stand_in.flag == 1003)
-				{
-					*controller.Flag = Flag_REMOVE;
-				}
-				else if(stand_in.flag == 1004)
-				{
-					*controller.Flag = Flag_RELEASE;
-				}
-			}
-		}
-		
-		
 		// global time counter
 		alltime = Get_SystemTimer_s();
 		
-		// enter different work condition according to Signal
+		// enter certain work condition according to Signal
 		if(*controller.Signal == Signal_START)
 		{
 			controller_task(&controller);
@@ -176,27 +144,33 @@ int main(void)
 		{
 			*controller.Signal = Signal_START;
 			controller_reset(&controller);
-			
 		}
 		
 		
-		// test - hotline
-//		if(switchH)
-//		{
-//			HAL_GPIO_WritePin(GPIOI, GPIO_PIN_2, GPIO_PIN_SET);
-//		}
-//		else
-//		{
-//			HAL_GPIO_WritePin(GPIOI, GPIO_PIN_2, GPIO_PIN_RESET);
-//		}
-//		else if(*controller.Signal == Signal_INIT)
-//		{
-//			motor_task(&controller, controller.motor_status[0], 
-//															controller.motor_status[1], 
-//															controller.motor_status[2]);
-//		}
+		// manually debugging - complete workflow
+		if(stand_in.turn_on)
+		{
+			if(stand_in.signal == 1000) *controller.Signal = Signal_START;
+			else if(stand_in.signal == 9999)
+			{
+				*controller.Signal = Signal_ERROR;
+				*controller.Flag = Flag_INIT;
+			}
+			if(*controller.Signal==Signal_START)
+			{
+				if(stand_in.flag == 0000)			 *controller.Flag = Flag_INIT;
+				else if(stand_in.flag == 1001) *controller.Flag = Flag_TRANSFER;
+				else if(stand_in.flag == 1002) *controller.Flag = Flag_CUT;
+				else if(stand_in.flag == 1003) *controller.Flag = Flag_REMOVE;
+				else if(stand_in.flag == 1004) *controller.Flag = Flag_RELEASE;
+			}
+		}
 		
+		// manually debugging - hotline
+//		if(switchH) HAL_GPIO_WritePin(GPIOI, GPIO_PIN_2, GPIO_PIN_SET);
+//		else 				HAL_GPIO_WritePin(GPIOI, GPIO_PIN_2, GPIO_PIN_RESET);
 
+		
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

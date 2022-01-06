@@ -8,9 +8,7 @@
 	*							now they are the latest version.
   * @history
   *  Version    Date            Modification
-  *  V1.0.0     Dec-10-2021     1. done
-  * @todo				1. rename
-	*							2. function prototypes
+  *  V1.0.0     Dec-13-2021     1. done
 	*
   ******************************************************************************
   */
@@ -18,12 +16,14 @@
 #include "can.h"
 #include "bsp_can.h"
 
+// motor data, for M3508 *4 and M2006 *1
 motor_measure_t motor[5] = {0};
 
+// CAN structs
 CANTxMsg_t txMsg;
 CANRxMsg_t rxMsg;
 
-
+/* function prototypes*/
 void get_total_angle(motor_measure_t *p);
 void get_motor_offset(motor_measure_t *ptr, CAN_HandleTypeDef *hcan);
 
@@ -61,30 +61,35 @@ void can_filter_init(CAN_HandleTypeDef *hcan)
 
 uint32_t FlashTimer;
 /**
-	* @brief          
-	* @param		      a: xxx
-  * @retval         
+	* @brief          rewrite the callback function of can rx
+	*									modify motor data according to the msg
+	* @param		      hcan: pointer of CAN handle
+  * @retval         none
   */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
+	// overtime
 	if(HAL_GetTick() - FlashTimer > 500){
 		HAL_GPIO_TogglePin(LED_GPIO_Port, LED1_Pin+1);
 		FlashTimer = HAL_GetTick();
 	}
-	
+
+	// 
 	if(hcan->Instance == CAN1)
 	{
+		// receive msg and check error
 		if(HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &(rxMsg.RxHeader), (rxMsg.rxbuffer)) != HAL_OK)
 			Error_Handler();
 	}
 
-	//ignore can1 or can2.
+	// ignore can1 or can2
 	switch(rxMsg.RxHeader.StdId){
 		case CAN_Motor1_ID:
 		case CAN_Motor2_ID:
 		case CAN_Motor3_ID:
 		case CAN_Motor4_ID:
 		{
+			// get motor id
 			static u8 i;
 			i = rxMsg.RxHeader.StdId - CAN_Motor1_ID;
 			get_motor_measure(&motor[i]);
@@ -93,6 +98,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 		
 		case CAN_Motor5_ID:
 		{
+			// motor5 is M2006, a special circumstance
 			get_motor_measure(&motor[4]);
 			break;
 		}
@@ -103,6 +109,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 		}
 	}
 	
+	// ######## no use anymore!! Master, times have changed, it's a brand new CAN lib now!!
 	/*#### add enable can it again to solve can receive only one ID problem!!!####**/
 	//__HAL_CAN_ENABLE_IT(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);  //oldVer: CAN_IT_FMP0
 
@@ -110,9 +117,9 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 
 
 /**
-	* @brief          
-	* @param		      a: xxx
-  * @retval         
+	* @brief          calculate motor data according to rxbuffer
+	* @param		      ptr: pointer that point to motor_measure_t
+  * @retval         none
   */
 void get_motor_measure(motor_measure_t *ptr)
 {
@@ -121,13 +128,16 @@ void get_motor_measure(motor_measure_t *ptr)
 	ptr->speed_rpm  = (int16_t)(rxMsg.rxbuffer[2]<<8 | rxMsg.rxbuffer[3]);
 	ptr->real_current = (rxMsg.rxbuffer[4]<<8 | rxMsg.rxbuffer[5])*5.f/16384.f;
 
+	// if motor id equals 5, that is the M2006, this value should be meaningless
 	ptr->hall = rxMsg.rxbuffer[6];
 	
-	
+	// round counting
 	if(ptr->angle - ptr->last_angle > 4096)
 		ptr->round_cnt --;
 	else if (ptr->angle - ptr->last_angle < -4096)
 		ptr->round_cnt ++;
+	
+	// total angle counting
 	ptr->total_angle = ptr->round_cnt * 8192 + ptr->angle - ptr->offset_angle;
 }
 
@@ -139,12 +149,17 @@ void get_motor_offset(motor_measure_t *ptr, CAN_HandleTypeDef* hcan)
 	ptr->offset_angle = ptr->angle;
 }
 
-#define ABS(x)	( (x>0) ? (x) : (-x) )
 /**
-*@brief =0, ?????????3510????????(?0)??????
-	*/
+	* @brief          abs calculator
+  */
+#define ABS(x)	( (x>0) ? (x) : (-x) )
+
+/**
+	* @brief          total angle calculator
+	* @param		      p: pointer that point to motor_measure_t
+  * @retval         none
+  */
 void get_total_angle(motor_measure_t *p){
-	
 	int res1, res2, delta;
 	if(p->angle < p->last_angle){			//possible situations
 		res1 = p->angle + 8192 - p->last_angle;	//forward , delta=+
@@ -165,8 +180,10 @@ void get_total_angle(motor_measure_t *p){
 
 
 /**
-	* @brief          
-	* @param		      a: xxx
+	* @brief          set the current of motors by send CAN msgs
+	* @param		      hcan: pointer of CAN handle;
+	* 								stdId: standard id of txheader, for C610 and C620, it is 0x200 or 0x1FF;
+	*									iq(1-4): target current
   * @return         
   */
 void set_motor_current(CAN_HandleTypeDef *hcan, u32 stdId, s16 iq1, s16 iq2, s16 iq3, s16 iq4){
@@ -194,7 +211,7 @@ void set_motor_current(CAN_HandleTypeDef *hcan, u32 stdId, s16 iq1, s16 iq2, s16
   */
 const motor_measure_t* get_motor_measure_ptr(uint8_t i)
 {
-    //return &motor[(i & 0x03)];
+//return &motor[(i & 0x03)];
 	return &motor[i];
 }
 

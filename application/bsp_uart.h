@@ -2,21 +2,23 @@
   ******************************************************************************
   * @file       bsp_uart.h
 	* @author			sxx
-  * @brief      contact with pi, may be also control the servos
+  * @brief      contact with upper computer
   * @note       
   * @history
   *  Version    Date            Modification
-  *  V1.0.0     Dec-11-2021     1. 
-  * @todo				1. 
+  *  V1.0.0     Dec-11-2021     1. done
+	*	 V1.1.0			Dec-22-2021			1. modified the commands
 	*
   ******************************************************************************
   */
 	
 #ifndef BSP_UART_H
 #define BSP_UART_H
+
 #include "struct_typedef.h"
 #include "usart.h"
 
+/* Signal enum*/
 typedef enum
 {
 	Signal_INIT	 = 0,
@@ -29,6 +31,8 @@ typedef enum
 	Signal_TEST  = 8888
 } signal_e;
 
+
+/* Flag enum*/
 typedef enum
 {
 	Flag_INIT 		= 0,
@@ -39,6 +43,7 @@ typedef enum
 } flag_e;
 
 
+/* UART msg enum */
 typedef enum
 {
 	MODE_INIT,
@@ -47,15 +52,8 @@ typedef enum
 	MODE_Test
 } cmd_mode_e;
 
-typedef enum
-{
-	WORK_Begin = 1000,
-	WORK_End 	 = 1999,
-	ERROR_All  = 9999,
-	TEST_OK		 = 1
-} command_e;
 
-
+/* uart struct */
 typedef struct
 {
 	UART_HandleTypeDef *uart;
@@ -71,14 +69,13 @@ typedef struct
 } liaison_t;
 
 
-
-//extern uint8_t rxData;
+/* function prototypes */
 void uart_transmit(liaison_t *liaison, cmd_mode_e mode, signal_e signal);
 liaison_t* get_liaison_ptr(uint8_t ch);
-//uint16_t* get_Signal_ptr(void);
-//uint16_t* get_Flag_ptr(void);
 signal_e* get_Signal_ptr(void);
 flag_e* 	get_Flag_ptr(void);
-
+// for debugging without upper computer
+//uint16_t* get_Signal_ptr(void);
+//uint16_t* get_Flag_ptr(void);
 
 #endif

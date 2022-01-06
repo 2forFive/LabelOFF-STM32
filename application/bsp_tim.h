@@ -1,13 +1,12 @@
 /**
   ******************************************************************************
-  * @file       
+  * @file       bsp_tim.h
 	* @author			sxx
-  * @brief      
+  * @brief      global timer
   * @note       
   * @history
   *  Version    Date            Modification
-  *  V1.0.0     Dec-10-2021     1. 
-  * @todo				1. 
+  *  V1.0.0     Dec-19-2021     1. done
 	*
   ******************************************************************************
   */
@@ -17,17 +16,21 @@
 
 #include "struct_typedef.h"
 
-//system time cnt
+/* global system time cnter */
 extern volatile uint32_t TimerCnt;
 
+
+/* counter typedef */
+// not enabled
 typedef struct
 {
 	float moment;
 	float duration;
 } counter_t;
 
+
+/* function prototypes */
 void delay_Init(void);
-//float Get_SystemTimer(void);
 uint32_t Get_SystemTimer(void);
 uint32_t Get_SystemTimer_s(void);
 

@@ -2,12 +2,11 @@
   ******************************************************************************
   * @file       pid.c
 	* @author			sxx
-  * @brief      Modified from DJI M2006 Demo and lml's trials.
-  * @note       
+  * @brief      PID control
+  * @note       Modified from DJI M2006 Demo and lml's trials.
   * @history
   *  Version    Date            Modification
   *  V1.0.0     Dec-11-2021     1. done
-  * @todo				1. move away no use functions
 	*
   ******************************************************************************
   */
@@ -24,7 +23,6 @@ static void pid_param_init(pid_t 	 *pid,
 													float 	 deadband,
 													int16_t  max_err,
 													int16_t  target,
-
 													const float PID[3])
 {
 	pid->id = id;		
@@ -45,11 +43,14 @@ static void pid_param_init(pid_t 	 *pid,
 
 
 /**
-	* @brief          change value of pid parameters
-	* @param		      a: xxx
+	* @brief          pid parameters assignment
+	* @param		      pid: pointer of pid
+	*									kp: value of parameter p
+	*									ki: value of parameter i
+	*									kd: value of parameter d
   * @return         none
   */
-static void pid_reset(pid_t * pid, float kp, float ki, float kd)
+static void pid_reset(pid_t *pid, float kp, float ki, float kd)
 {
 	pid->kp = kp;
 	pid->ki = ki;
@@ -58,19 +59,17 @@ static void pid_reset(pid_t * pid, float kp, float ki, float kd)
 
 
 /**
-	* @brief          
-	* @param		      a: xxx
-  * @return         
+	* @brief          pid calculation
+	* @param		      pid: pointer of pid
+	*									measure: measured value
+  * @return         output of the calculation
   */
-static float pid_calculate(pid_t* pid, float measure)//, int16_t target)
+static float pid_calculate(pid_t* pid, float measure)
 {
-//	uint32_t time,lasttime;
-	
 	pid->lasttime = pid->thistime;
 	pid->thistime = HAL_GetTick();
 	pid->dtime = pid->thistime-pid->lasttime;
 	pid->measure = measure;
-  //	pid->target = target;
 		
 	pid->last_err  = pid->err;
 	pid->last_output = pid->output;
@@ -81,9 +80,9 @@ static float pid_calculate(pid_t* pid, float measure)//, int16_t target)
 	if((ABS(pid->err) > pid->DeadBand))
 	{
 		pid->pout = pid->kp * pid->err;
+		
 		pid->iout += (pid->ki * pid->err);
 		
-
 		pid->dout =  pid->kd * (pid->err - pid->last_err); 
 		
 		//iout limit
@@ -113,8 +112,8 @@ static float pid_calculate(pid_t* pid, float measure)//, int16_t target)
 
 /**
 	* @brief          initiate the pid struct
-	* @param		      a: xxx
-  * @return         
+	* @param		      pid: pointer of pid
+  * @return         none
   */
 void pid_init(pid_t* pid)
 {

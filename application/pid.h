@@ -2,13 +2,11 @@
   ******************************************************************************
   * @file       pid.h
 	* @author			sxx
-  * @brief      
-  * @note       
+  * @brief      PID control
+  * @note       Modified from DJI M2006 Demo and lml's trials.
   * @history
   *  Version    Date            Modification
   *  V1.0.0     Dec-11-2021     1. done
-  * @todo				1. move functions out of the typedef
-	*							2. move away no use attributes
 	*
   ******************************************************************************
   */
@@ -19,44 +17,47 @@
 #include "struct_typedef.h"
 #include "bsp_can.h"
 
+/* pid id enum */
 typedef enum
 {
 	PID_Position,
 	PID_Speed
 } pid_id_e;
 
+/* pid struct typedef*/
 typedef struct _pid_t
 {
 	pid_id_e id;
 	
-	float target;							//目标值
+	float target;							// target value
 	float lastNoneZeroTarget;
 	float kp;
 	float ki;
 	float kd;
 	
-	float   measure;					//测量值
-	float   err;							//误差
-	float   last_err;      		//上次误差
+	float   measure;					// measured value
+	float   err;							// error
+	float   last_err;      		// error of last time
 	
 	float pout;
 	float iout;
 	float dout;
 	
-	float output;						//本次输出
-	float last_output;			//上次输出
+	float output;
+	float last_output;			// output of last time
 	
-	float MaxOutput;				//输出限幅
-	float IntegralLimit;		//积分限幅
-	float DeadBand;			  //死区（绝对值）
-	float ControlPeriod;		//控制周期
-	float  Max_Err;					//最大误差
+	float MaxOutput;				// maximum value of output
+	float IntegralLimit;		// maximum value of iout
+	float DeadBand;			  	// the absolute value of deadband
+	float ControlPeriod;		// control period
+	float  Max_Err;					// maximum value of error
 	
 	uint32_t thistime;
 	uint32_t lasttime;
 	uint8_t dtime;	
 	
-	void (*f_param_init)(struct _pid_t *pid,  //PID参数初始化
+	//PID parameter initialization
+	void (*f_param_init)(struct _pid_t *pid,  
 										pid_id_e id,
 										uint16_t maxOutput,
 										uint16_t integralLimit,
@@ -64,12 +65,15 @@ typedef struct _pid_t
 										int16_t max_err,     
 										int16_t  target,
 										const float PID[3]);
-	void (*f_pid_reset)(struct _pid_t *pid, float kp,float ki, float kd);		//pid三个参数修改
-	float (*f_cal_pid)(struct _pid_t *pid, float measure);   //pid计算
+	//pid parameter modifying
+	void (*f_pid_reset)(struct _pid_t *pid, float kp,float ki, float kd);
+	//pid calculation
+	float (*f_cal_pid)(struct _pid_t *pid, float measure);
 
 } pid_t;
 
-void pid_init(pid_t* pid);
 
+/* function prototypes */
+void pid_init(pid_t* pid);
 
 #endif
