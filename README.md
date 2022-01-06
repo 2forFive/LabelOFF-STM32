@@ -1,6 +1,6 @@
 # LabelOFF-STM32
 
-Codes run on DJI A Board, controlling all the actuators.
+Codes run on DJI A Board in our project *LabelOFF*, controlling all the actuators.
 
 
 **NOTICE**
